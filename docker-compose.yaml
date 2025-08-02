@@ -1,0 +1,16 @@
+# Example compose file
+
+services:
+  webhook:
+    image: ghcr.io/baeks215/docker-webhook
+    container_name: webhook
+    restart: always
+    environment:
+      - HOOK_SECRET=${HOOK_SECRET}
+    volumes:
+      # Mount the config file
+      - /path/to/hooks.json:/config/hooks.json:ro
+      # Mount the deployment directory
+      - /path/to/scripts:/app/scripts
+      # Mount the Docker socket to allow this container to control others
+      - /var/run/docker.sock:/var/run/docker.sock
